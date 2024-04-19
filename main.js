@@ -16,5 +16,5 @@ app.whenReady().then(()=>{
     });
 
     // load html
-    window.loadFile('index.html')
+    window.loadFile('./lumina/build/index.html')
 })
