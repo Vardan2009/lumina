@@ -4,6 +4,8 @@
   "private": true,
   "homepage": ".",
   "dependencies": {
+    "@codemirror/state": "^6.4.1",
+    "@codemirror/view": "^6.26.3",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
@@ -40,5 +42,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@types/codemirror": "^5.60.15",
+    "codemirror": "^6.0.1"
   }
 }

@@ -1,38 +1,96 @@
-.App {
-  text-align: center;
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@300..700&display=swap');
+
+:root {
+  --background-color: #1c1f2b;
+  --foreground-background-color: #282c38;
+  --button-background-color: #39404d;
+  --text-color: #abb2bf;
+  --variable-color: #d7d7ff;
+  --selection-color: #3e4b5b;
+  --highlight-color: #485766;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+
+*
+{
+  margin:0px;
+  padding:0px;
+  box-sizing: border-box; 
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+body
+{
+  background-color: var(--background-color);
+  color: var(--text-color);
+  font-family: "Fira Code", monospace;
+  font-optical-sizing: auto;
+  font-style: normal;
+  user-select: none;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+div#sidebar
+{
+  height: 100vh;
+  width: 300px;
+  padding: 15px;
+  background-color: var(--foreground-background-color);
+}
+
+.codearea
+{
+  width:calc(100%);
+  height: 100vh;
+  background-color: var(--background-color);
+  border: none;
+  outline: none;
+  color: var(--text-color);
+  font-size: 20px;
+  user-select: all;
+}
+
+.cm-editor *
+{
+  font-family: "Fira Code";
+  font-optical-sizing: auto;
+  font-style: normal;
+  user-select: none;
+}
+
+
+.cm-editor .cm-gutters
+{
+  background-color: var(--button-background-color);
+}
+
+.cm-editor .cm-activeLineGutter
+{
+  background-color: var(--highlight-color);
+  color: var(--text-color);
+}
+
+.App
+{
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
 }
 
-.App-link {
-  color: #61dafb;
+
+::-webkit-scrollbar {
+  width: 5px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+::-webkit-scrollbar-track {
+  background: var(--foreground-background-color);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--text-color);
+  cursor:default;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--background-color);
+}
+
+::selection {
+  background: var(--selection-color);
 }
