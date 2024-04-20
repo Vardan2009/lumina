@@ -5,14 +5,13 @@ import Editor from './components/editor';
 import Main from './components/main';
 import Credits from './components/credits';
 
-
 const Pages: { [id: string]: Function } = {
   "main": MainPage,
   "credits": CreditsPage,
   "editor": EditorPage
 };
 
-let dirtree : any[] = []
+let dirtreew : object = []
 
 function MainPage(electron:any,functions:any): JSX.Element
 {
@@ -28,7 +27,7 @@ function EditorPage(electron:any,functions:any): JSX.Element
 {
   return <>
         
-          <Editor electron={electron} functions={functions} dirtree={dirtree} />
+          <Editor electron={electron} functions={functions} dirtree={dirtreew} />
         </>
 }
 
@@ -41,12 +40,36 @@ interface changelog
 function App() {
   const [State,SetState] = useState<string>("main");
   const [electron,SetElectronInstance] = useState<any>();
-    
+  const [dirtree,SetDirtree] = useState({});
+  
+
+
+  const openFolder = async ()=>{
+    let s = await electron.openFolderDialog();
+    if(s.canceled) return;
+    let dirListing = await electron.readFolderListing(s.filePaths[0])
+    if(!dirListing) return;
+    SetDirtree(dirListing);
+    dirtreew = dirListing;
+    SetState("editor");
+}
+
+
   useEffect(()=>{
         SetElectronInstance((window as any).electron);
   },[])
 
-
+  useEffect(()=>{
+    if(!electron) return;
+    electron.onOpenFolder(()=>{
+      openFolder();
+    })
+    electron.onExitEditor(()=>{
+      SetDirtree({})
+      dirtreew = {};
+      SetState("main")
+    })
+  },[electron])
 
   const readChlog = (setChangelog : any) => {
         if(!electron) return;
@@ -70,14 +93,7 @@ function App() {
     },path);
 };
 
-  const openFolder = async()=>{
-        let s = await electron.openFolderDialog();
-        if(s.canceled) return;
-        let dirListing = await electron.readFolderListing(s.filePaths[0])
-        if(!dirListing) return;
-        dirtree = dirListing
-        SetState("editor");
-  }
+ 
 
   const functions = {
     openFolder:openFolder,

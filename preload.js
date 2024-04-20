@@ -31,6 +31,7 @@ const openFolderDialog = async () => {
     }
 };
 
+
 const readFolderListing = async (dirPath)=>
 {
     const result = {};
@@ -54,6 +55,7 @@ contextBridge.exposeInMainWorld('electron', {
     readChangelog: readChangelog,
     openFolderDialog: openFolderDialog,
     readFolderListing : readFolderListing,
-    readFile: readFile
+    readFile: readFile,
+    onOpenFolder: (callback)=> ipcRenderer.on('open-folder',(e) => callback()),
+    onExitEditor: (callback) => ipcRenderer.on('exit-editor',(e)=>callback())
 })
-

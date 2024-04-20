@@ -1,6 +1,6 @@
 
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import CodeMirror from '@uiw/react-codemirror';
 import { createTheme } from '@uiw/codemirror-themes';
 import { tags as t } from '@lezer/highlight';
@@ -28,8 +28,8 @@ const myTheme = createTheme({
   },
   styles: [
     { tag: t.comment, color: '#787b80' },
-    { tag: t.lineComment, color: '#474747' },
-    { tag: t.blockComment, color: '#474747' },
+    { tag: t.lineComment, color: '#709999' },
+    { tag: t.blockComment, color: '#709999' },
     { tag: t.name, color: '#b49d9d' },
     { tag: t.definition(t.typeName), color: '#194a7b' },
     { tag: t.typeName, color: '#194a7b' },
@@ -187,9 +187,35 @@ const getLangNameByExtension = (extension) => {
 }
 
 
+const startCodes = [
+  {
+    code:"// Why did the JavaScript developer go broke? Because he kept spending all his cash on \"promises\" that never resolved!",
+    path:"promises.js"
+  },
+  {
+    code:"# How does a Python programmer solve a problem? They slither through it!",
+    path:"problem.py"
+  },
+  {
+    code:"// Why did the JavaScript developer quit his job? Because he couldn't handle the \"callback\" from his boss!",
+    path:"callback.js"
+  },
+  {
+    code:"# Why did the Python developer get lost? Because his map function didn't return a value!",
+    path:"map.py"
+  }
+] 
+
+
 const Editor = (params) => {
-  const [code,SetCode] = useState("t");
-  const [path,SetPath] = useState("test.js");
+  const [code,SetCode] = useState("// Hello Lumina!");
+  const [path,SetPath] = useState("new.js");
+
+  useEffect(()=>{
+    let randindex = Math.floor(Math.random()*startCodes.length)
+    SetCode(startCodes[randindex].code)
+    SetPath(startCodes[randindex].path)
+  },[])
 
   const loadFile = (path)=>{
     params.functions.readFile(SetCode,path);
