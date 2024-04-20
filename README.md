@@ -1,4 +1,3 @@
-# lumina
-### This version is deprecated
-### Lumina will be rewritten in React Native in another repository
+# Lumina
+Lumina is continuing development
 Lumina Code Editor - Simple and Lightweight
