@@ -27,8 +27,8 @@ function CreditsPage(electron:any,functions:any): JSX.Element
 function EditorPage(electron:any,functions:any): JSX.Element
 {
   return <>
-          <Sidebar  electron={electron} functions={functions} dirtree={dirtree}/>
-          <Editor electron={electron} functions={functions} />
+        
+          <Editor electron={electron} functions={functions} dirtree={dirtree} />
         </>
 }
 
@@ -59,6 +59,17 @@ function App() {
         });
   };
 
+  const readFile = (setTxt : any,path:string) => {
+    if(!electron) return;
+    electron.readFile((err : string, data : string) => {
+        if (err) {
+            console.error('Error reading file:', err);
+        } else {
+          setTxt(data);
+        }
+    },path);
+};
+
   const openFolder = async()=>{
         let s = await electron.openFolderDialog();
         if(s.canceled) return;
@@ -71,7 +82,8 @@ function App() {
   const functions = {
     openFolder:openFolder,
     readChlog:readChlog,
-    SetState:SetState
+    SetState:SetState,
+    readFile:readFile
   }
 
   return (

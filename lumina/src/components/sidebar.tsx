@@ -1,10 +1,9 @@
 import React, { useState } from 'react'
-
 const Sidebar = (params : any) => {
     return (
         <div id="sidebar">
             <h1 style={{fontFamily:"Montserrat"}}>Lumina</h1><br/>
-            <DirectoryTree tree={params.dirtree} />
+            <DirectoryTree tree={params.dirtree} SetCode={params.SetCode} />
         </div>
     );
 }
@@ -33,7 +32,7 @@ const FolderButton = (params:any) => {
 }
 
 const FileButton = (params:any) => {
-  return (<p onClick={()=>{alert(params.node)}} className="file listbutton" key={params.nodeName}>{params.nodeName}</p>);
+  return (<p onClick={()=>{params.SetCode(params.node)}} className="file listbutton" key={params.nodeName}>{params.nodeName}</p>);
 }
 
 
@@ -42,13 +41,13 @@ const DirectoryTree= (params : any) => {
   let tree = params.tree;
 
 
-  const renderNode = (node : any, nodeName: any) => {
+  const renderNode = (node : any, nodeName: any,SetCode:any) => {
     if (typeof node === 'object' && node !== null) {
       return (
         <FolderButton node={node} nodeName={nodeName} renderNode={renderNode} />
       );
     } else {
-      return <FileButton nodeName={nodeName} node={node}/>;
+      return <FileButton nodeName={nodeName} node={node} SetCode={params.SetCode}/>;
     }
   };
   console.log(tree)
@@ -57,7 +56,7 @@ const DirectoryTree= (params : any) => {
     <div className="file-tree">
       {Object.entries(tree).map(([nodeName, node]) => (
         <React.Fragment key={nodeName}>
-          {renderNode(node, nodeName)}
+          {renderNode(node, nodeName,params.SetCode)}
         </React.Fragment>
       ))}
     </div>

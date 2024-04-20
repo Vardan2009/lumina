@@ -12,6 +12,16 @@ const readChangelog = (callback) => {
     });
 };
 
+const readFile = (callback,path) => {
+    fs.readFile(path, (err, data) => {
+        if (err) {
+            callback(err);
+        } else {
+            callback(null,data.toString());
+        }
+    });
+};
+
 const openFolderDialog = async () => {
     try {
         const result = await ipcRenderer.invoke('open-folder-dialog');
@@ -43,6 +53,7 @@ const readFolderListing = async (dirPath)=>
 contextBridge.exposeInMainWorld('electron', {
     readChangelog: readChangelog,
     openFolderDialog: openFolderDialog,
-    readFolderListing : readFolderListing
+    readFolderListing : readFolderListing,
+    readFile: readFile
 })
 
