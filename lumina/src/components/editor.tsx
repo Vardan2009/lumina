@@ -2,7 +2,7 @@ import React, { useEffect,useRef } from 'react';
 import {EditorView} from "@codemirror/view"
 import { basicSetup } from 'codemirror';
 
-const Editor = () => {
+const Editor = (params : any) => {
     const editorRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {

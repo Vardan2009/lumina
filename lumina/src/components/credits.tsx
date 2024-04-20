@@ -11,7 +11,7 @@ const Credits = (params : any) => {
             <hr />
             <br />
             <i>Huge thanks to other contributors!</i>
-            <button onClick={()=>{params.SetState("main")}}>Back</button>
+            <button onClick={()=>{params.functions.SetState("main")}}>Back</button>
         </div>
     </div> );
 }

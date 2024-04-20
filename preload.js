@@ -1,4 +1,4 @@
-const { contextBridge } = require('electron')
+const { contextBridge,ipcRenderer} = require('electron')
 const fs = require('fs');
 
 const readChangelog = (callback) => {
@@ -11,7 +11,19 @@ const readChangelog = (callback) => {
     });
 };
 
+const openFolderDialog = async () => {
+    try {
+        const result = await ipcRenderer.invoke('open-folder-dialog');
+        return result;
+    } catch (error) {
+        console.error('Error opening Folder:', error);
+    }
+};
+
+
+
 contextBridge.exposeInMainWorld('electron', {
-    readChangelog: readChangelog
+    readChangelog: readChangelog,
+    openFolderDialog: openFolderDialog
 })
 
