@@ -33,7 +33,7 @@ const FolderButton = (params:any) => {
 }
 
 const FileButton = (params:any) => {
-  return (<p className="file listbutton" key={params.nodeName}>{params.nodeName}</p>);
+  return (<p onClick={()=>{alert(params.node)}} className="file listbutton" key={params.nodeName}>{params.nodeName}</p>);
 }
 
 
@@ -48,7 +48,7 @@ const DirectoryTree= (params : any) => {
         <FolderButton node={node} nodeName={nodeName} renderNode={renderNode} />
       );
     } else {
-      return <FileButton nodeName={nodeName}/>;
+      return <FileButton nodeName={nodeName} node={node}/>;
     }
   };
   console.log(tree)
