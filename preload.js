@@ -1,5 +1,6 @@
 const { contextBridge,ipcRenderer} = require('electron')
 const fs = require('fs');
+const path = require('path')
 
 const readChangelog = (callback) => {
     fs.readFile('chlog.json', (err, data) => {
@@ -20,10 +21,28 @@ const openFolderDialog = async () => {
     }
 };
 
+const readFolderListing = async (dirPath)=>
+{
+    const result = {};
+    const files = fs.readdirSync(dirPath);
+    files.forEach(file => {
+        const filePath = path.join(dirPath, file);
+        const stats = fs.statSync(filePath);
+
+        if (stats.isDirectory()) {
+            readFolderListing(filePath).then((res)=>result[file]=res);
+        } else {
+            result[file] = filePath;
+        }
+    });
+
+    return result;
+}
 
 
 contextBridge.exposeInMainWorld('electron', {
     readChangelog: readChangelog,
-    openFolderDialog: openFolderDialog
+    openFolderDialog: openFolderDialog,
+    readFolderListing : readFolderListing
 })
 

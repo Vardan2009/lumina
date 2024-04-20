@@ -12,6 +12,8 @@ const Pages: { [id: string]: Function } = {
   "editor": EditorPage
 };
 
+let dirtree : any[] = []
+
 function MainPage(electron:any,functions:any): JSX.Element
 {
   return <Main electron={electron} functions={functions}/>
@@ -25,8 +27,8 @@ function CreditsPage(electron:any,functions:any): JSX.Element
 function EditorPage(electron:any,functions:any): JSX.Element
 {
   return <>
-          <Sidebar  electron={electron} functions={functions} />
-          <Editor electron={electron} functions={functions}/>
+          <Sidebar  electron={electron} functions={functions} dirtree={dirtree}/>
+          <Editor electron={electron} functions={functions} />
         </>
 }
 
@@ -59,8 +61,11 @@ function App() {
 
   const openFolder = async()=>{
         let s = await electron.openFolderDialog();
-        
-        //SetState("editor")
+        if(s.canceled) return;
+        let dirListing = await electron.readFolderListing(s.filePaths[0])
+        if(!dirListing) return;
+        dirtree = dirListing
+        SetState("editor");
   }
 
   const functions = {
