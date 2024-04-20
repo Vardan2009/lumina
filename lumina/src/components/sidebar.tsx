@@ -17,8 +17,8 @@ const FolderButton = (params:any) => {
   }
 
   return ( 
-    <div className="folder listbutton" key={params.nodeName}>
-    <p  onClick={toggleVisibility}>{params.nodeName}</p>
+    <div className="folder" key={params.nodeName}>
+    <p className={childsVisible?'listbutton folderopen':'listbutton folderclose'} onClick={toggleVisibility}>{params.nodeName}</p>
     <div className="subfiles">
       {Object.entries(params.node).map(([subNodeName, subNode]) => (
         <React.Fragment key={subNodeName}>
@@ -31,7 +31,11 @@ const FolderButton = (params:any) => {
   </div>
    );
 }
- 
+
+const FileButton = (params:any) => {
+  return (<p className="file listbutton" key={params.nodeName}>{params.nodeName}</p>);
+}
+
 
 
 const DirectoryTree= (params : any) => {
@@ -44,7 +48,7 @@ const DirectoryTree= (params : any) => {
         <FolderButton node={node} nodeName={nodeName} renderNode={renderNode} />
       );
     } else {
-      return <p className="file" key={nodeName}>{nodeName}</p>;
+      return <FileButton nodeName={nodeName}/>;
     }
   };
   console.log(tree)

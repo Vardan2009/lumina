@@ -54,6 +54,25 @@ body
   background-color: transparent;
 }
 
+.folderopen::before
+{
+  content:'v ';
+}
+
+.folderclose::before
+{
+  content:'> ';
+}
+
+.listbutton:hover
+{
+  background-color: var(--button-background-color);
+}
+.listbutton:active
+{
+  background-color: var(--background-color);
+}
+
 #start
 {
   display: flex;
