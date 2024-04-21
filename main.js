@@ -2,8 +2,9 @@
 // WRITTEN BY VARDAN PETROSYAN
 
 // load stuff
-const {app, BrowserWindow,dialog,ipcMain,Menu,MenuItem, ipcRenderer} = require("electron")
+const {app, BrowserWindow,dialog,ipcMain,Menu,MenuItem} = require("electron")
 const path = require('node:path')
+const prompt = require('electron-prompt');
 
 let window;
 
@@ -16,6 +17,24 @@ const openFolderDialogLocal =  async () => {
     
     return result;
 }
+
+const newEntryNameDialog = async()=>{
+    let r = await prompt({
+        title: 'New...',
+        label: 'Name:',
+        inputAttrs: {
+            type: 'text'
+        },
+        height:200,
+        type: 'input'
+    })
+    if(r === null) {
+        return;
+    } else {
+        return r;
+    }
+};
+
 
 app.whenReady().then(()=>{
     // create window instance
@@ -36,6 +55,11 @@ app.whenReady().then(()=>{
             label:"Open Folder",
             accelerator: process.platform === 'darwin' ? 'Cmd+O' : 'Ctrl+O',
             click: ()=>{window.webContents.send('open-folder')}
+        },
+        {
+            label:"Save",
+            accelerator: process.platform === 'darwin' ? 'Cmd+S' : 'Ctrl+S',
+            click: ()=>{window.webContents.send('save-file')}
         },
         {
             label:"Exit Editor",
@@ -70,3 +94,4 @@ app.whenReady().then(()=>{
 })
 
 ipcMain.handle('open-folder-dialog',openFolderDialogLocal);
+ipcMain.handle('new-entry-name-dialog',newEntryNameDialog)

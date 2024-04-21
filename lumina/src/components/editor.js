@@ -217,6 +217,8 @@ const Editor = (params) => {
 
   const loadFile = (path)=>{
     params.functions.readFile(SetCode,path);
+    params.SetCurrentPath(path)
+    params.SetCurrentCode(code)
     SetPath(path)
   }
 
@@ -227,7 +229,7 @@ const Editor = (params) => {
 
   return (
       <>
-      <Sidebar electron={params.electron} functions={params.functions} dirtree={params.dirtree} SetCode={loadFile}/>
+      <Sidebar electron={params.electron} functions={params.functions} dirtree={params.dirtree} SetCode={loadFile} projpath={params.projpath}/>
       <div style={{width:"100%"}}>
       <p><span className={getClassWithColor(path)}></span> {path?path.split('\\').pop():"Untitled"} | {lang}</p>
       <CodeMirror
@@ -237,15 +239,13 @@ const Editor = (params) => {
           lang
         )
       ]:[]}
-      onBeforeChange={(editor, data, value) => {
-        SetCode(value)
+      onChange={(newcode) => {
+        SetCode(newcode)
+        params.SetCurrentCode(newcode)
       }}
       theme={myTheme}
       width='100%'
       height='100vh'
-      onChange={(editor, value) => {
-        console.log('controlled', {value});
-      }}
     />
     </div>
     </>

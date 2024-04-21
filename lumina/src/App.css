@@ -167,10 +167,10 @@ button:active
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--text-color);
+  background: var(--highlight-color);
   cursor:default;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--highlight-color);
+  background: var(--text-color);
 }
