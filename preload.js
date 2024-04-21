@@ -18,6 +18,7 @@ const readFile = (callback,path) => {
             callback(err);
         } else {
             callback(null,data.toString());
+            document.title = data.split('\\').pop()
         }
     });
 };

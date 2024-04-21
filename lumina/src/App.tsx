@@ -41,7 +41,7 @@ function App() {
   const [State,SetState] = useState<string>("main");
   const [electron,SetElectronInstance] = useState<any>();
   const [dirtree,SetDirtree] = useState({});
-  
+  let set : boolean = false;  
 
 
   const openFolder = async ()=>{
@@ -61,6 +61,8 @@ function App() {
 
   useEffect(()=>{
     if(!electron) return;
+    if(set) return;
+    set = true;
     electron.onOpenFolder(()=>{
       openFolder();
     })

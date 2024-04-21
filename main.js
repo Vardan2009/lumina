@@ -45,11 +45,28 @@ app.whenReady().then(()=>{
     ]
     }))
 
-    Menu.setApplicationMenu(menu)
+    menu.append(new MenuItem({
+        label:"Developer",
+        submenu:[
+            {
+                label:"Open Chrome DevTools",
+                accelerator: process.platform === 'darwin' ? 'Cmd+Shift+I' : 'Ctrl+Shift+I',
+                click: ()=>{window.webContents.openDevTools()}
+            },
+            {
+                label:"Reload Page",
+                accelerator: process.platform === 'darwin' ? 'Cmd+R' : 'Ctrl+R',
+                click: ()=>{window.webContents.reloadIgnoringCache()}
+            }
+        ]
+    }));
 
+    Menu.setApplicationMenu(menu)
+    window.setBackgroundColor('#0f111a');
     // load html
     //window.loadFile('./lumina/build/index.html') // ONLY USE IN PRODUCTION
     window.loadURL("http://localhost:3000")
+
 })
 
 ipcMain.handle('open-folder-dialog',openFolderDialogLocal);

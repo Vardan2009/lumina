@@ -1,8 +1,15 @@
 import React, { useState } from 'react'
+import { faFileCirclePlus,faFolderPlus,faRotateRight } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { db,getClassWithColor } from 'file-icons-js';
+import 'file-icons-js/css/style.css';
+
 const Sidebar = (params : any) => {
     return (
         <div id="sidebar">
-            <h1 style={{fontFamily:"Montserrat"}}>Lumina</h1><br/>
+            <button className='smallbtn'> <FontAwesomeIcon icon={faFileCirclePlus} /> </button>
+            <button className='smallbtn'> <FontAwesomeIcon icon={faFolderPlus} /> </button>
+            <button className='smallbtn'> <FontAwesomeIcon icon={faRotateRight} /> </button>
             <DirectoryTree tree={params.dirtree} SetCode={params.SetCode} />
         </div>
     );
@@ -32,7 +39,7 @@ const FolderButton = (params:any) => {
 }
 
 const FileButton = (params:any) => {
-  return (<p onClick={()=>{params.SetCode(params.node)}} className="file listbutton" key={params.nodeName}>{params.nodeName}</p>);
+  return (<p onClick={()=>{params.SetCode(params.node)}} className="file listbutton" key={params.nodeName}><span className={getClassWithColor(params.node)}></span>&nbsp;{params.nodeName}</p>);
 }
 
 

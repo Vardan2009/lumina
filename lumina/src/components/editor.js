@@ -6,6 +6,8 @@ import { createTheme } from '@uiw/codemirror-themes';
 import { tags as t } from '@lezer/highlight';
 import Sidebar from './sidebar'
 import { loadLanguage } from '@uiw/codemirror-extensions-langs';
+import {getClassWithColor} from 'file-icons-js';
+
 require('codemirror/lib/codemirror.css');
 
 
@@ -182,7 +184,7 @@ const getLangNameByExtension = (extension) => {
   }
   else
   {
-    return 'unknown';
+    return 'No Syntax Highlighting found';
   }
 }
 
@@ -190,19 +192,15 @@ const getLangNameByExtension = (extension) => {
 const startCodes = [
   {
     code:"// Why did the JavaScript developer go broke? Because he kept spending all his cash on \"promises\" that never resolved!",
-    path:"promises.js"
   },
   {
     code:"# How does a Python programmer solve a problem? They slither through it!",
-    path:"problem.py"
   },
   {
     code:"// Why did the JavaScript developer quit his job? Because he couldn't handle the \"callback\" from his boss!",
-    path:"callback.js"
   },
   {
     code:"# Why did the Python developer get lost? Because his map function didn't return a value!",
-    path:"map.py"
   }
 ] 
 
@@ -214,7 +212,7 @@ const Editor = (params) => {
   useEffect(()=>{
     let randindex = Math.floor(Math.random()*startCodes.length)
     SetCode(startCodes[randindex].code)
-    SetPath(startCodes[randindex].path)
+    SetPath(undefined)
   },[])
 
   const loadFile = (path)=>{
@@ -224,17 +222,17 @@ const Editor = (params) => {
 
   let lang = getLangNameByExtension
         (
-          path.split('.').pop()
+          path?path.split('.').pop():"."
         );
 
   return (
       <>
       <Sidebar electron={params.electron} functions={params.functions} dirtree={params.dirtree} SetCode={loadFile}/>
       <div style={{width:"100%"}}>
-      <p>{path.split('\\').pop()} | {lang}</p>
+      <p><span className={getClassWithColor(path)}></span> {path?path.split('\\').pop():"Untitled"} | {lang}</p>
       <CodeMirror
       value={code}
-      extensions={lang!='unknown'?[
+      extensions={lang!='No Syntax Highlighting found'?[
         loadLanguage(
           lang
         )
