@@ -79,7 +79,6 @@ function App() {
     if(!electron) return;
     if(set) return;
     set = true;
-    if(!electron) return;
     electron.onOpenFolder(openFolder)
     
     electron.onExitEditor(()=>{
