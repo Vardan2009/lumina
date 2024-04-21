@@ -3,6 +3,11 @@
 import { useEffect, useState } from 'react';
 import CodeMirror from '@uiw/react-codemirror';
 import { createTheme } from '@uiw/codemirror-themes';
+
+// THEMES
+import { materialDark } from '@uiw/codemirror-theme-material';
+import { tokyoNight } from '@uiw/codemirror-theme-tokyo-night';
+
 import { tags as t } from '@lezer/highlight';
 import Sidebar from './sidebar'
 import { loadLanguage } from '@uiw/codemirror-extensions-langs';
@@ -11,44 +16,6 @@ import {getClassWithColor} from 'file-icons-js';
 require('codemirror/lib/codemirror.css');
 
 
-
-
-const myTheme = createTheme({
-  dark: 'light',
-  settings: {
-    background: '#0f111a',
-    backgroundImage: '',
-    foreground: '#babed8',
-    caret: '#607780',
-    selection: '#1f2233',
-    selectionMatch: '#89ddff',
-    gutterBackground: '#0f111a',
-    gutterForeground: '#4b526d',
-    gutterBorder: '#0f111a',
-    gutterActiveForeground: '#89ddff',
-    lineHighlight: '#0a0c12',
-  },
-  styles: [
-    { tag: t.comment, color: '#787b80' },
-    { tag: t.lineComment, color: '#709999' },
-    { tag: t.blockComment, color: '#709999' },
-    { tag: t.name, color: '#b49d9d' },
-    { tag: t.definition(t.typeName), color: '#194a7b' },
-    { tag: t.typeName, color: '#194a7b' },
-    { tag: t.tagName, color: '#f9d806' },
-    { tag: t.variableName, color: '#009dff' },
-    { tag: t.function(t.variableName), color: '#7ac28c' },
-    { tag: t.propertyName, color: '#cc7575' },
-    { tag: t.function(t.propertyName), color: '#cd32a4' },
-    { tag: t.definition(t.propertyName), color: '#3dacd1' },
-    { tag: t.attributeName, color: '#3763a9' },
-    { tag: t.constant(t.className), color: '' },
-    { tag: t.string, color: '#ffc23d' },
-    { tag: t.special(t.string), color: '#119283' },
-    { tag: t.attributeValue, color: '#ffc23d' },
-    { tag: t.escape, color: '#55d71d' },
-  ],
-});
 
 const getLangNameByExtension = (extension) => {
   const extensionMap = {
@@ -214,6 +181,7 @@ const Editor = (params) => {
     let randindex = Math.floor(Math.random()*startCodes.length)
     SetCode(startCodes[randindex].code)
     SetPath(undefined)
+
   },[])
 
   const loadFile = (path)=>{
@@ -255,7 +223,7 @@ const Editor = (params) => {
         SetCode(newcode)
         params.SetCurrentCode(newcode)
       }}
-      theme={myTheme}
+      theme={tokyoNight}
       width='100%'
       height='100vh'
     />

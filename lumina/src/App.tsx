@@ -24,7 +24,7 @@ function CreditsPage(electron:any,functions:any): JSX.Element
   return <Credits electron={electron} functions={functions}/>
 }
 
-function EditorPage(electron:any,functions:any,SetCurrentPath:any,SetCurrentCode:any): JSX.Element
+function EditorPage(electron:any,functions:any,SetCurrentPath:any,SetCurrentCode:any,): JSX.Element
 { 
   return <Editor electron={electron} functions={functions} dirtree={dirtreew} projpath={projpath} SetCurrentPath={SetCurrentPath} SetCurrentCode={SetCurrentCode} />
 }
@@ -131,7 +131,7 @@ function App() {
   }
 
   return (
-    <div className="App">
+    <div className="App" >
       {Pages[State](electron,functions,SetCurrentPath,SetCurrentCode)}
     </div>
   );
