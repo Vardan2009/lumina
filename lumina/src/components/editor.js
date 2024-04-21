@@ -208,6 +208,7 @@ const startCodes = [
 const Editor = (params) => {
   const [code,SetCode] = useState("// Hello Lumina!");
   const [path,SetPath] = useState("new.js");
+  const [saved,SetSaved] = useState(false);
 
   useEffect(()=>{
     let randindex = Math.floor(Math.random()*startCodes.length)
@@ -226,12 +227,23 @@ const Editor = (params) => {
         (
           path?path.split('.').pop():"."
         );
+  
+   useEffect(()=>{
+    if(!path) return;
+    if(!code) return;
+    SetSaved(params.electron.checkIfSaved(path,code))
+   },[path,code])
+    
+   useEffect(()=>{
+    if(!params.electron) return;
+    params.electron.onSave(()=>{SetSaved(true)})
+   },[params.electron])
 
   return (
       <>
       <Sidebar electron={params.electron} functions={params.functions} dirtree={params.dirtree} SetCode={loadFile} projpath={params.projpath}/>
       <div style={{width:"100%"}}>
-      <p><span className={getClassWithColor(path)}></span> {path?path.split('\\').pop():"Untitled"} | {lang}</p>
+      <p><span className={getClassWithColor(path)}></span> {path?path.split('\\').pop():"Untitled"} {!saved&&"(unsaved)"} | {lang}</p>
       <CodeMirror
       value={code}
       extensions={lang!='No Syntax Highlighting found'?[

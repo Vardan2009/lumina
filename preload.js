@@ -68,9 +68,9 @@ const createFSEntry = async (reloadfunc,type,rootpath) =>{
 }
 
 let currentPath,currentCode;
+let saved;
 
 const saveFile = async(path,code)=>{
-    alert("saving to "+path+" with "+code)
     await fs.writeFile(path,code,()=>{})
 }
 
@@ -81,12 +81,25 @@ contextBridge.exposeInMainWorld('electron', {
     readFile: readFile,
     createFSEntry: createFSEntry,
     saveFile:saveFile,
+    checkIfSaved: (path,content)=>{
+        if(!path) {saved = false; return false}
+        try{
+        let savedt = fs.readFileSync(path);
+        saved = savedt==content;
+        return savedt == content
+        }
+        catch{
+            saved = false;
+            return false}
+    },
     onOpenFolder: (callback)=> ipcRenderer.on('open-folder',(e) => callback()),
     onExitEditor: (callback) => ipcRenderer.on('exit-editor',(e)=>callback()),
     setCurrentCode:(n)=>{currentCode = n},
-    setCurrentPath:(n)=>{currentPath = n;}
+    setCurrentPath:(n)=>{currentPath = n;},
+    onSave:(callback)=>{ipcRenderer.on('save-file',()=>{callback()})}
 })
 
 ipcRenderer.on('save-file',()=>{
     saveFile(currentPath,currentCode)
+    saved =true;
 })
