@@ -64,6 +64,23 @@ body
   overflow-x: hidden;
 }
 
+.rmbutton
+{
+  transform: scale(0.8);
+  opacity: 0.7;
+}
+
+.rmbutton:hover
+{
+  transform: scale(0.9);
+  opacity: 1;
+}
+
+.rmbutton:active
+{
+  opacity: 0.5;
+}
+
 .folderopen::before
 {
   content:'v ';

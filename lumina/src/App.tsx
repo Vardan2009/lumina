@@ -119,6 +119,16 @@ function App() {
     electron.createFSEntry(reloadfunc,type,path);
   }
 
+  const removeFile = (path : string)=>{
+    if(!electron) return;
+    electron.removeFile(path,()=>{openFolderWithPath(projpath)});
+  }
+
+  const removeDirectory = (path:string)=>{
+    if(!electron) return;
+    electron.removeDirectory(path,()=>{openFolderWithPath(projpath)});
+  }
+
  
 
   const functions = {
@@ -127,6 +137,8 @@ function App() {
     readChlog:readChlog,
     SetState:SetState,
     readFile:readFile,
+    removeFile:removeFile,
+    removeDirectory:removeDirectory,
     createFSEntry:createFSEntry
   }
 

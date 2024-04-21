@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { faFileCirclePlus,faFolderPlus,faRotateRight } from '@fortawesome/free-solid-svg-icons';
+import { faFileCirclePlus,faFolderPlus,faRotateRight, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { db,getClassWithColor } from 'file-icons-js';
 import 'file-icons-js/css/style.css';
@@ -22,7 +22,7 @@ const Sidebar = (params : any) => {
             <button className='smallbtn' onClick={()=>{createent('file')}}> <FontAwesomeIcon icon={faFileCirclePlus} /> </button>
             <button className='smallbtn' onClick={()=>{createent('folder')}}> <FontAwesomeIcon icon={faFolderPlus} /> </button>
             <button className='smallbtn' onClick={()=>{params.functions.openFolderWithPath(params.projpath)}}> <FontAwesomeIcon icon={faRotateRight} /> </button>
-            <DirectoryTree tree={params.dirtree} SetCode={params.SetCode} abspath={params.projpath} />
+            <DirectoryTree tree={params.dirtree} SetCode={params.SetCode} abspath={params.projpath} functions={params.functions} />
         </div>
     );
 }
@@ -37,7 +37,7 @@ const FolderButton = (params:any) => {
 
   return ( 
     <div className="folder" key={params.nodeName}>
-    <p className={childsVisible?'listbutton folderopen':'listbutton folderclose'} onClick={toggleVisibility}>{params.nodeName}</p>
+    <div style={{display:"flex",justifyContent:"space-between"}}><p className={childsVisible?'listbutton folderopen':'listbutton folderclose'} onClick={toggleVisibility}>{params.nodeName} </p> <i className='rmbutton' style={{color:'red',marginRight:5}}><FontAwesomeIcon onClick={()=>{params.functions.removeDirectory(params.abspath)}} icon={faTrash} /></i></div>
     <div className="subfiles">
       {Object.entries(params.node).length > 0 ?Object.entries(params.node).map(([subNodeName, subNode]) => (
         <React.Fragment key={subNodeName}>
@@ -66,7 +66,7 @@ const getParentFolderPath = (filePath : string) => {
 
 
 const FileButton = (params:any) => {
-  return (<p onClick={()=>{lastClickedPath = getParentFolderPath(params.node); params.SetCode(params.node)}} className="file listbutton" key={params.nodeName}><span className={getClassWithColor(params.node)}></span>&nbsp;{params.nodeName}</p>);
+  return (<div style={{display:"flex",justifyContent:"space-between"}}><p onClick={()=>{lastClickedPath = getParentFolderPath(params.node); params.SetCode(params.node)}} className="file listbutton" key={params.nodeName}><span className={getClassWithColor(params.node)}></span>&nbsp;{params.nodeName}</p> <i className='rmbutton' style={{color:'red',marginRight:5}}><FontAwesomeIcon onClick={()=>{params.functions.removeFile(params.node)}} icon={faTrash} /></i></div>);
 }
 
 
@@ -78,10 +78,10 @@ const DirectoryTree= (params : any) => {
   const renderNode = (node : any, nodeName: any,SetCode:any,path:any) => {
     if (typeof node === 'object' && node !== null) {
       return (
-        <FolderButton node={node} nodeName={nodeName} abspath={path+"\\"+nodeName} renderNode={renderNode} />
+        <FolderButton node={node} nodeName={nodeName} abspath={path+"\\"+nodeName} renderNode={renderNode} functions={params.functions} />
       );
     } else {
-      return <FileButton nodeName={nodeName} node={node} SetCode={params.SetCode}/>;
+      return <FileButton nodeName={nodeName} node={node} SetCode={params.SetCode} functions={params.functions}/>;
     }
   };
   return (

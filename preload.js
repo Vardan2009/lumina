@@ -74,6 +74,14 @@ const saveFile = async(path,code)=>{
     await fs.writeFile(path,code,()=>{})
 }
 
+const removeFile = (path,cb)=>{
+    fs.unlink(path,cb)
+}
+
+const removeDirectory = (path,cb)=>{
+    fs.rmdir(path,{recursive:true},cb)
+}
+
 contextBridge.exposeInMainWorld('electron', {
     readChangelog: readChangelog,
     openFolderDialog: openFolderDialog,
@@ -81,6 +89,8 @@ contextBridge.exposeInMainWorld('electron', {
     readFile: readFile,
     createFSEntry: createFSEntry,
     saveFile:saveFile,
+    removeFile:removeFile,
+    removeDirectory:removeDirectory,
     checkIfSaved: (path,content)=>{
         if(!path) {saved = false; return false}
         try{
