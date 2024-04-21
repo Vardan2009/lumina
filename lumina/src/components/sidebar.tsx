@@ -87,11 +87,14 @@ const DirectoryTree= (params : any) => {
   return (
    
     <div className="file-tree">
-      {Object.entries(tree).map(([nodeName, node]) => (
-        <React.Fragment key={nodeName}>
-          {renderNode(node, nodeName,params.SetCode,params.abspath)}
-        </React.Fragment>
-      ))}
+      <p className='listbutton folderopen' onClick={()=>{lastClickedPath = params.abspath}}>{params.abspath.split('\\').pop()}</p>
+      <div style={{marginLeft:"1ch"}} className="subfiles">
+        {Object.entries(tree).map(([nodeName, node]) => (
+          <React.Fragment key={nodeName}>
+            {renderNode(node, nodeName,params.SetCode,params.abspath)}
+          </React.Fragment>
+        ))}
+      </div>
     </div>
   );
 };
