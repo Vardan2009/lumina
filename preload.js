@@ -113,7 +113,13 @@ contextBridge.exposeInMainWorld('electron', {
             saved = false;
             return false}
     },
-    onOpenFolder: (callback)=> ipcRenderer.on('open-folder',(e) => callback()),
+    onOpenFolder: (callback) => {
+        ipcRenderer.on('open-folder', callback);
+
+        return () => {
+          ipcRenderer.removeListener('open-folder', callback);
+        };
+    },
     onExitEditor: (callback) => ipcRenderer.on('exit-editor',(e)=>callback()),
     setCurrentCode:(n)=>{currentCode = n},
     setCurrentPath:(n)=>{currentPath = n;},

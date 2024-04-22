@@ -161,9 +161,9 @@ input:focus, textarea:focus {
   font-weight: 200;
 }
 
-#start hr
+hr
 {
-  opacity: 0.2;
+  border-color: rgba(255,255,255,0.2);
   margin: 20px 0px;
 }
 

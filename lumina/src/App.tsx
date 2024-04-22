@@ -87,8 +87,8 @@ function App() {
   useEffect(()=>{
     if(!electron) return;
     if(set) return;
-    set = true;
-    electron.onOpenFolder(openFolder)
+    
+    const unsub = electron.onOpenFolder(openFolder)
     
     electron.onExitEditor(()=>{
       SetDirtree({})
@@ -98,6 +98,12 @@ function App() {
       SetCurrentCode("");
       SetState("main")
     })
+
+    set = true;
+
+    return ()=>{
+      unsub();
+    }
   },[electron])
 
   const readChlog = (setChangelog : any) => {
