@@ -45,7 +45,7 @@ const Prefs = (params : any) => {
     }
 
     const saveConfig = () => {
-        params.electron.saveFile("./lumina_config.json",JSON.stringify(config))
+        params.electron.saveFile("./lumina_config.json",JSON.stringify({ ...config, starttext: config?.starttext.filter(s => s.trim().length > 0) }))
         SetSaved(true)
     }
     
