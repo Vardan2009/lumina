@@ -3,7 +3,17 @@ const fs = require('fs');
 const path = require('path')
 
 const readChangelog = (callback) => {
-    fs.readFile('chlog.json', (err, data) => {
+    fs.readFile('lumina_chlog.json', (err, data) => {
+        if (err) {
+            callback(err);
+        } else {
+            callback(null, JSON.parse(data));
+        }
+    });
+};
+
+const readConfig = (callback) => {
+    fs.readFile('lumina_config.json', (err, data) => {
         if (err) {
             callback(err);
         } else {
@@ -84,6 +94,7 @@ const removeDirectory = (path,cb)=>{
 
 contextBridge.exposeInMainWorld('electron', {
     readChangelog: readChangelog,
+    readConfig: readConfig,
     openFolderDialog: openFolderDialog,
     readFolderListing : readFolderListing,
     readFile: readFile,

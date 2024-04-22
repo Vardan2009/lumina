@@ -2,13 +2,27 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 :root {
   --background-color: #0f111a;
-  --foreground-background-color: #1c1f2b;
+  --foreground-background-color: 28,31,43;
   --button-background-color: #272b33;
   --text-color: #abb2bf;
   --variable-color: #d7d7ff;
   --selection-color: #3e4b5b;
   --highlight-color: #485766;
   --popout-color: #89ddff;
+}
+
+
+@keyframes fadein {
+  from{
+    transform: scale(0.95) translateY(5px);
+    opacity: 0;
+    filter: blur(5px);
+  }
+  to
+  {
+    transform: scale(1);
+    opacity: 1;
+  }
 }
 
 
@@ -30,6 +44,19 @@ body
   overflow: hidden;
 }
 
+.bgimg
+{
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  filter: blur(10px);
+  opacity: 0.7;
+  z-index: -999;
+}
+
 .folder
 {
   color:white
@@ -46,6 +73,29 @@ body
   margin-left:20px;
 }
 
+.menubutton
+{
+  text-align: left;
+}
+
+textarea
+{
+  resize: none;
+  width: 100%;
+  min-height: 100px;
+  background-color: var(--background-color);
+  color:var(--text-color);
+  margin: 10px 0px;
+  border: 0;
+  border-radius: 5px;
+  padding: 10px;
+}
+
+input:focus, textarea:focus {
+  outline: 0;
+  outline-color: transparent;
+  outline-style: none;
+}
 
 .listbutton
 {
@@ -111,21 +161,120 @@ body
   font-weight: 200;
 }
 
+#start hr
+{
+  opacity: 0.2;
+  margin: 20px 0px;
+}
+
 #start div
 {
-  background-color: var(--foreground-background-color);
+  background-color: rgba(var(--foreground-background-color), 0.5);
   padding:20px;
   min-height: 50%;
   max-width: 30%;
   min-width: 200px;
+  border-radius: 10px;
 }
+
+#start > div *
+{
+  animation: fadein 0.5s forwards 1;
+  opacity: 0;
+  --delay: 0.05;
+}
+
+/* This part is extremely dumb, but whatever, it works */
+
+#start > div *:nth-child(1)
+{
+  animation-delay: calc(var(--delay) * (1 - 1) * 1s);
+}
+
+#start > div *:nth-child(2)
+{
+  animation-delay: calc(var(--delay) * (2 - 1) * 1s);
+}
+
+#start > div *:nth-child(3)
+{
+  animation-delay: calc(var(--delay) * (3 - 1) * 1s);
+}
+
+#start > div *:nth-child(4)
+{
+  animation-delay: calc(var(--delay) * (3 - 1) * 1s);
+}
+
+#start > div *:nth-child(4)
+{
+  animation-delay: calc(var(--delay) * (4 - 1) * 1s);
+}
+
+#start > div *:nth-child(5)
+{
+  animation-delay: calc(var(--delay) * (5 - 1) * 1s);
+}
+
+#start > div *:nth-child(6)
+{
+  animation-delay: calc(var(--delay) * (6 - 1) * 1s);
+}
+
+#start > div *:nth-child(7)
+{
+  animation-delay: calc(var(--delay) * (7 - 1) * 1s);
+}
+
+#start > div *:nth-child(8)
+{
+  animation-delay: calc(var(--delay) * (8 - 1) * 1s);
+}
+
+#start > div *:nth-child(9)
+{
+  animation-delay: calc(var(--delay) * (9 - 1) * 1s);
+}
+
+#start > div *:nth-child(10)
+{
+  animation-delay: calc(var(--delay) * (10 - 1) * 1s);
+}
+
+.mainWordmark
+{
+  /* pretend something is here */
+  display: block;
+}
+
+.bigLogoBg
+{
+  font-size: 10rem;
+  margin-bottom: -50px;
+  mask-image: -webkit-gradient(linear, left top, left bottom, 
+    from(rgba(0,0,0,.5)), to(rgba(0,0,0,0)));
+}
+
+.bigImgBg
+{
+  margin-bottom: -50px;
+  mask-image: -webkit-gradient(linear, left top, left bottom, 
+    from(rgba(0,0,0,1)), to(rgba(0,0,0,0)));
+}
+
+
+.fadeincontainer
+{
+  animation: fadein 0.3s forwards 1;
+}
+
 
 div#sidebar
 {
   height: 100vh;
   min-width: 300px;
   padding: 15px;
-  background-color: var(--foreground-background-color);
+  background-color: rgba(var(--foreground-background-color),0.5);
 }
 
 .smallbtn
@@ -154,6 +303,8 @@ button
   color:var(--text-color);
   cursor: pointer;
   width: 100%;
+  border-radius: 5px;
+  transition-duration: 0.2s;
 }
 
 button:hover
@@ -180,7 +331,7 @@ button:active
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--foreground-background-color);
+  background: rgba(var(--foreground-background-color),0.2);
 }
 
 ::-webkit-scrollbar-thumb {
