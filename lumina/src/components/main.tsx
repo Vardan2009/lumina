@@ -16,7 +16,6 @@ interface config
 }
 
 const Main = (params : any) => {
-
     const [changelog,SetChangelog] = useState<changelog>()
     const [config,SetConfig] = useState<config>()
 
