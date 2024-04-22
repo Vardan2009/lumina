@@ -233,7 +233,7 @@ const Editor = (params) => {
       }}
       theme={tokyoNight}
       width='100%'
-      height='100vh'
+      height='calc(100vh - 60px)'
     />
     </div>
     </>
