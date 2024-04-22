@@ -1,4 +1,4 @@
-const { contextBridge,ipcRenderer, dialog} = require('electron')
+const { contextBridge,ipcRenderer, dialog,shell } = require('electron')
 const fs = require('fs');
 const path = require('path')
 
@@ -92,6 +92,11 @@ const removeDirectory = (path,cb)=>{
     fs.rmdir(path,{recursive:true},cb)
 }
 
+const showInExplorer = (filepath)=>{
+    if(!filepath) return;
+    shell.openPath(path.dirname(filepath))
+}
+
 contextBridge.exposeInMainWorld('electron', {
     readChangelog: readChangelog,
     readConfig: readConfig,
@@ -100,6 +105,7 @@ contextBridge.exposeInMainWorld('electron', {
     readFile: readFile,
     createFSEntry: createFSEntry,
     saveFile:saveFile,
+    showInExplorer:showInExplorer,
     removeFile:removeFile,
     removeDirectory:removeDirectory,
     checkIfSaved: (path,content)=>{

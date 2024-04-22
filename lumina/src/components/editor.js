@@ -13,6 +13,9 @@ import Sidebar from './sidebar'
 import { loadLanguage } from '@uiw/codemirror-extensions-langs';
 import {getClassWithColor} from 'file-icons-js';
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faFolderOpen } from '@fortawesome/free-solid-svg-icons';
+
 require('codemirror/lib/codemirror.css');
 
 
@@ -211,7 +214,12 @@ const Editor = (params) => {
       <>
       <Sidebar electron={params.electron} functions={params.functions} dirtree={params.dirtree} SetCode={loadFile} projpath={params.projpath}/>
       <div style={{width:"100%"}}>
-      <p><span className={getClassWithColor(path)}></span> {path?path.split('\\').pop():"Untitled"} {!saved&&"(unsaved)"} | {lang}</p>
+
+      <div style={{display:"flex",alignItems:"center"}}>
+        <p style={{margin:"0px 20px"}}><span className={getClassWithColor(path)}></span> {path?path.split('\\').pop():"Untitled"} {!saved&&"(unsaved)"} | {lang}</p>
+        <button className='smallbtn' onClick={()=>{params.electron.showInExplorer(path)}}> <FontAwesomeIcon icon={faFolderOpen} /> </button>
+      </div>
+
       <CodeMirror
       value={code}
       extensions={lang!='No Syntax Highlighting found'?[
