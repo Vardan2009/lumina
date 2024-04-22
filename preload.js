@@ -89,7 +89,7 @@ const removeFile = (path,cb)=>{
 }
 
 const removeDirectory = (path,cb)=>{
-    fs.rmdir(path,{recursive:true},cb)
+    fs.rm(path,{recursive:true},cb)
 }
 
 const showInExplorer = (filepath)=>{
