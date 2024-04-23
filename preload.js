@@ -126,7 +126,7 @@ contextBridge.exposeInMainWorld('electron', {
           ipcRenderer.removeListener('open-folder', callback);
         };
     },
-    onExitEditor: (callback) => ipcRenderer.on('exit-editor',(e)=>callback()),
+    onExitEditor: (callback) => ipcRenderer.on('exit-editor',(e)=>{callback();  document.title = "Lumina"}),
     setCurrentCode:(n)=>{currentCode = n},
     setCurrentPath:(n)=>{currentPath = n;},
     onSave:(callback)=>{ipcRenderer.on('save-file',()=>{callback()})}

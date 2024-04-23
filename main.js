@@ -39,13 +39,14 @@ const newEntryNameDialog = async()=>{
 app.whenReady().then(()=>{
     // create window instance
     window = new BrowserWindow({
-        title:"Lumina Code",
+        title:"Lumina",
         width:800,
         height:600,
         webPreferences:{
             nodeIntegration:true,
             preload:path.join(__dirname, 'preload.js')
-        }
+        },
+        icon: __dirname + '/lumina.ico',
     });
 
     const menu = new Menu()
