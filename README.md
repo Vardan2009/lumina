@@ -46,7 +46,7 @@ git clone https://github.com/Vardan2009/lumina.git
 <p>3. Install packages for React</p>
 
 ```
-in (/lumina/package.json) npm install
+(in /lumina/package.json) npm install
 ```
 
 <p>4. Run React app (only for development not for production)</p>
