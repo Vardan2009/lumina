@@ -97,6 +97,8 @@ const showInExplorer = (filepath)=>{
     shell.openPath(path.dirname(filepath))
 }
 
+
+
 contextBridge.exposeInMainWorld('electron', {
     readChangelog: readChangelog,
     readConfig: readConfig,

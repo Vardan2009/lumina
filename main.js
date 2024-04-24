@@ -66,6 +66,10 @@ app.whenReady().then(()=>{
             label:"Exit Editor",
             accelerator: process.platform === 'darwin' ? 'Cmd+E' : 'Ctrl+E',
             click: ()=>{window.webContents.send('exit-editor')}
+        },
+        {
+            label:"Exit Lumina",
+            click: ()=>{app.quit()}
         }
     ]
     }))

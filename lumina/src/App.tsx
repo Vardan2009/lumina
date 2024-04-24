@@ -81,7 +81,7 @@ function App() {
         SetElectronInstance((window as any).electron);
   },[]);
 
-
+  
 
 
   useEffect(()=>{
@@ -89,15 +89,18 @@ function App() {
     if(set) return;
     
     const unsub = electron.onOpenFolder(openFolder)
-    
-    electron.onExitEditor(()=>{
+
+
+    const exitEditor =()=>{
       SetDirtree({})
       projpath=""
       dirtreew = {};
       SetCurrentPath("");
       SetCurrentCode("");
-      SetState("main")
-    })
+      SetState("main");
+    }
+
+    electron.onExitEditor(exitEditor)
 
     set = true;
 
