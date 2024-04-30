@@ -97,7 +97,6 @@ Thank you for considering contributing to our project! Please follow these guide
 
 ## Communication
 
-- Feel free to join our Discord/Slack channel for discussions and questions.
 - Respect other contributors and maintain a friendly atmosphere.
 
 ## License
